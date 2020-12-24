@@ -10,6 +10,12 @@ go run main.go
 
 docker coming soon.
 
+### generate docs in acse of change
+
+```
+swag init --parseDependency --parseInternal
+```
+
 ### todo
 
 - [ ] finish dashboard

@@ -43,8 +43,7 @@ var doc = `{
                         "type": "integer",
                         "description": "page num",
                         "name": "page",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ]
             }
@@ -91,7 +90,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "add to cart"
+                "summary": "add to cart",
+                "parameters": [
+                    {
+                        "description": "Order Item Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.OrderItem"
+                        }
+                    }
+                ]
             }
         },
         "/categories": {
@@ -102,7 +112,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "add categories"
+                "summary": "add categories",
+                "parameters": [
+                    {
+                        "description": "Category Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Category"
+                        }
+                    }
+                ]
             }
         },
         "/checkout": {
@@ -215,7 +236,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "add items"
+                "summary": "add items",
+                "parameters": [
+                    {
+                        "description": "Item Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Item"
+                        }
+                    }
+                ]
             }
         },
         "/login": {
@@ -226,7 +258,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "login"
+                "summary": "login",
+                "parameters": [
+                    {
+                        "description": "Account Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ]
             }
         },
         "/products": {
@@ -237,7 +280,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "add products"
+                "summary": "add products",
+                "parameters": [
+                    {
+                        "description": "Product Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Product"
+                        }
+                    }
+                ]
             }
         },
         "/search": {
@@ -251,15 +305,13 @@ var doc = `{
                         "type": "integer",
                         "description": "page num",
                         "name": "page",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     },
                     {
                         "type": "string",
                         "description": "search term",
                         "name": "term",
-                        "in": "query",
-                        "required": true
+                        "in": "query"
                     }
                 ]
             }
@@ -272,7 +324,18 @@ var doc = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "signup"
+                "summary": "signup",
+                "parameters": [
+                    {
+                        "description": "Account Info",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ]
             }
         },
         "/users": {
@@ -284,6 +347,222 @@ var doc = `{
                     "application/json"
                 ],
                 "summary": "find users"
+            }
+        }
+    },
+    "definitions": {
+        "models.Category": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Item": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "disc": {
+                    "type": "boolean"
+                },
+                "discAmount": {
+                    "description": "%",
+                    "type": "number"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "pricePerItem": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/models.Product"
+                },
+                "qty": {
+                    "type": "integer"
+                },
+                "top": {
+                    "description": "maens will show always on homepage",
+                    "type": "boolean"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Order": {
+            "type": "object",
+            "properties": {
+                "canceled": {
+                    "description": "user set",
+                    "type": "boolean"
+                },
+                "confirmed": {
+                    "description": "Description  string",
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "delivered": {
+                    "description": "admin set",
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "locationDesc": {
+                    "type": "string"
+                },
+                "orders": {
+                    "description": "Price        float32 // calculate on front",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.OrderItem"
+                    }
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "userID": {
+                    "description": "Name         string",
+                    "type": "integer"
+                }
+            }
+        },
+        "models.OrderItem": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "item": {
+                    "$ref": "#/definitions/models.Item"
+                },
+                "itemID": {
+                    "description": "create ref onself beacuse it's a one to many rel and other solutions would result in overwritten rels",
+                    "type": "integer"
+                },
+                "orderID": {
+                    "type": "integer"
+                },
+                "qty": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Product": {
+            "type": "object",
+            "properties": {
+                "category": {
+                    "$ref": "#/definitions/models.Category"
+                },
+                "categoryID": {
+                    "description": "create ref onself beacuse it's a one to many rel and other solutions would result in overwritten rels",
+                    "type": "integer"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "imgURL": {
+                    "type": "string"
+                },
+                "itemID": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "admin": {
+                    "type": "boolean"
+                },
+                "banned": {
+                    "type": "boolean"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Order"
+                    }
+                },
+                "password": {
+                    "type": "string"
+                },
+                "phoneno": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "username": {
+                    "description": "make it unique",
+                    "type": "string"
+                },
+                "validated": {
+                    "type": "boolean"
+                }
             }
         }
     }

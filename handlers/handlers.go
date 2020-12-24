@@ -38,6 +38,7 @@ func FindUsers(c *fiber.Ctx) error {
 // @Summary login
 // @Accept json
 // @Produce json
+// @Param message body models.User true "Account Info"
 // @Router /login [post]
 func Login(c *fiber.Ctx) error {
 	var input = new(models.User)
@@ -83,6 +84,7 @@ func Login(c *fiber.Ctx) error {
 // @Summary signup
 // @Accept json
 // @Produce json
+// @Param message body models.User true "Account Info"
 // @Router /signup [post]
 func Signup(c *fiber.Ctx) error {
 	// Validate input
@@ -141,6 +143,7 @@ func parseJWT(c *fiber.Ctx) (name string, id float64, admin bool) {
 // AddProduct through form
 // @Summary add products
 // @Accept multipart/form-data
+// @Param message body models.Product true "Product Info"
 // @Produce json
 // @Router /products [post]
 func AddProduct(c *fiber.Ctx) error {
@@ -182,6 +185,7 @@ func AddProduct(c *fiber.Ctx) error {
 // @Summary add items
 // @Accept json
 // @Produce json
+// @Param message body models.Item true "Item Info"
 // @Router /items [post]
 func AddItem(c *fiber.Ctx) error {
 	_, _, isadmin := parseJWT(c)
@@ -225,6 +229,7 @@ func AddItem(c *fiber.Ctx) error {
 // @Summary add categories
 // @Accept json
 // @Produce json
+// @Param message body models.Category true "Category Info"
 // @Router /categories [post]
 func AddCategory(c *fiber.Ctx) error {
 
@@ -254,8 +259,8 @@ func AddCategory(c *fiber.Ctx) error {
 
 // SearchItems by name
 // @Summary search
-// @Param page query int true "page num"
-// @Param term query string true "search term"
+// @Param page query int false "page num"
+// @Param term query string false "search term"
 // @Produce json
 // @Router /search [get]
 func SearchItems(c *fiber.Ctx) error {
@@ -321,7 +326,7 @@ func DeleteItems(c *fiber.Ctx) error {
 
 // DeleteCategories func
 // @Summary del categories
-// @Param id path string true "catg id""
+// @Param id path string true "catg id"
 // @Produce json
 // @Router /del/categories/{id} [get]
 func DeleteCategories(c *fiber.Ctx) error {
@@ -344,7 +349,7 @@ func DeleteCategories(c *fiber.Ctx) error {
 
 // Home func
 // @Summary homepage
-// @Param page query int true "page num"
+// @Param page query int false "page num"
 // @Produce json
 // @Router / [get]
 func Home(c *fiber.Ctx) error {
@@ -380,6 +385,7 @@ func GetCart(c *fiber.Ctx) error {
 // @Summary add to cart
 // @Accept json
 // @Produce json
+// @Param message body models.OrderItem true "Order Item Info"
 // @Router /cart [post]
 func AddToCart(c *fiber.Ctx) error {
 	var cart models.Order

@@ -1,4 +1,151 @@
 basePath: /api
+definitions:
+  models.Category:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.Item:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      disc:
+        type: boolean
+      discAmount:
+        description: '%'
+        type: number
+      id:
+        type: integer
+      pricePerItem:
+        type: number
+      product:
+        $ref: '#/definitions/models.Product'
+      qty:
+        type: integer
+      top:
+        description: maens will show always on homepage
+        type: boolean
+      updatedAt:
+        type: string
+    type: object
+  models.Order:
+    properties:
+      canceled:
+        description: user set
+        type: boolean
+      confirmed:
+        description: Description  string
+        type: boolean
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      delivered:
+        description: admin set
+        type: boolean
+      id:
+        type: integer
+      locationDesc:
+        type: string
+      orders:
+        description: Price        float32 // calculate on front
+        items:
+          $ref: '#/definitions/models.OrderItem'
+        type: array
+      updatedAt:
+        type: string
+      userID:
+        description: Name         string
+        type: integer
+    type: object
+  models.OrderItem:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      id:
+        type: integer
+      item:
+        $ref: '#/definitions/models.Item'
+      itemID:
+        description: create ref onself beacuse it's a one to many rel and other solutions
+          would result in overwritten rels
+        type: integer
+      orderID:
+        type: integer
+      qty:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.Product:
+    properties:
+      category:
+        $ref: '#/definitions/models.Category'
+      categoryID:
+        description: create ref onself beacuse it's a one to many rel and other solutions
+          would result in overwritten rels
+        type: integer
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      imgURL:
+        type: string
+      itemID:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.User:
+    properties:
+      admin:
+        type: boolean
+      banned:
+        type: boolean
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      orders:
+        items:
+          $ref: '#/definitions/models.Order'
+        type: array
+      password:
+        type: string
+      phoneno:
+        type: string
+      updatedAt:
+        type: string
+      username:
+        description: make it unique
+        type: string
+      validated:
+        type: boolean
+    type: object
 host: localhost:3000
 info:
   contact:
@@ -18,7 +165,6 @@ paths:
       - description: page num
         in: query
         name: page
-        required: true
         type: integer
       produces:
       - application/json
@@ -49,6 +195,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Order Item Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.OrderItem'
       produces:
       - application/json
       summary: add to cart
@@ -56,6 +209,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Category Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Category'
       produces:
       - application/json
       summary: add categories
@@ -129,6 +289,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Item Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Item'
       produces:
       - application/json
       summary: add items
@@ -136,6 +303,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Account Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
       produces:
       - application/json
       summary: login
@@ -143,6 +317,13 @@ paths:
     post:
       consumes:
       - multipart/form-data
+      parameters:
+      - description: Product Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
       produces:
       - application/json
       summary: add products
@@ -152,12 +333,10 @@ paths:
       - description: page num
         in: query
         name: page
-        required: true
         type: integer
       - description: search term
         in: query
         name: term
-        required: true
         type: string
       produces:
       - application/json
@@ -166,6 +345,13 @@ paths:
     post:
       consumes:
       - application/json
+      parameters:
+      - description: Account Info
+        in: body
+        name: message
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
       produces:
       - application/json
       summary: signup
