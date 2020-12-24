@@ -1,0 +1,179 @@
+basePath: /api
+host: localhost:3000
+info:
+  contact:
+    email: fiber@swagger.io
+    name: API Support
+  description: This is a sample swagger for Fiber
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Fiber Example API
+  version: "1.0"
+paths:
+  /:
+    get:
+      parameters:
+      - description: page num
+        in: query
+        name: page
+        required: true
+        type: integer
+      produces:
+      - application/json
+      summary: homepage
+  /auth/{id}:
+    get:
+      parameters:
+      - description: user id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: validate email
+  /cancel:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: cancel cart
+  /cart:
+    get:
+      produces:
+      - application/json
+      summary: get cart
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: add to cart
+  /categories:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: add categories
+  /checkout:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: checkout
+  /del/cart/{id}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: order item id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: remove from cart
+  /del/categories/{id}:
+    get:
+      parameters:
+      - description: catg id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: del categories
+  /del/items/{id}:
+    get:
+      parameters:
+      - description: item id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: del items
+  /del/products/{id}:
+    get:
+      parameters:
+      - description: prod id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: del products
+  /deliver/{id}:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: cart id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: deliver
+  /items:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: add items
+  /login:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: login
+  /products:
+    post:
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      summary: add products
+  /search:
+    get:
+      parameters:
+      - description: page num
+        in: query
+        name: page
+        required: true
+        type: integer
+      - description: search term
+        in: query
+        name: term
+        required: true
+        type: string
+      produces:
+      - application/json
+      summary: search
+  /signup:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: signup
+  /users:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      summary: find users
+swagger: "2.0"
