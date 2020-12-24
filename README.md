@@ -12,8 +12,8 @@ docker coming soon.
 
 ### todo
 
-[ ] finish dashboard
-[ ] add security headers
-[X] add CORS
-[ ] define json input in docs
-[ ] use limiter
+- [ ] finish dashboard
+- [ ] add security headers
+- [x] add CORS
+- [ ] define json input in docs
+- [ ] use limiter
