@@ -21,5 +21,5 @@ swag init --parseDependency --parseInternal
 - [ ] finish dashboard
 - [ ] add security headers
 - [x] add CORS
-- [ ] define json input in docs
+- [x] define json input in docs
 - [ ] use limiter
